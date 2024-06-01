@@ -1,0 +1,190 @@
+/* Basic styling for an interactive button */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect: Change background color on hover */
+.button:hover {
+    background-color: #2980b9;
+}
+
+/* Styling for a form input with a focus effect */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus effect: Change border color when input is focused */
+.input-field:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Styling for a toggle switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* The switch itself */
+.toggle-switch .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3498db;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Move the switch to the "on" position */
+.toggle-switch.on .slider {
+    transform: translateX(20px);
+}
+
+/* Hide the checkbox input */
+.toggle-switch input[type="checkbox"] {
+    display: none;
+}
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  /* Form container */
+  .form-container {
+    border: none;
+    border-radius: 4px;
+    padding: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form title */
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form labels */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Text input fields */
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    padding: 15px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-size: 16px;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  /* Text input on focus */
+  input[type="text"]:focus,
+  input[type="email"]:focus {
+    border-color: #4CAF50;
+  }
+  
+  /* Select element */
+  select {
+    width: 100%;
+    padding: 15px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-size: 16px;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  /* Select on focus */
+  select:focus {
+    border-color: #4CAF50;
+  }
+  
+  /* Phone number input */
+  input[type="phone"] {
+    /* Add your styles for phone number input here (optional) */
+  }
+  
+  /* Profile image input */
+  input[type="file"] {
+    display: none;
+  }
+  
+  /* Custom file upload button (optional) */
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    color: #333;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #eee;
+  }
+  
+  /* Submit button */
+  button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  /* Image preview container (initially hidden) */
+  .image-preview {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Image preview styles */
+  .image-preview img {
+    width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+  }

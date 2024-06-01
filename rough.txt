@@ -1,0 +1,325 @@
+CREATE TABLE `images` (
+    `img_name` varchar(255) NOT NULL,
+    `img_data` longblob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `images` ADD UNIQUE KEY `img_name` (`img_name`);
+
+//image save in the database
+
+<?php
+// Connect to your database (replace with your actual credentials)
+$host = 'localhost';
+$dbname = 'your_database_name';
+$username = 'your_username';
+$password = 'your_password';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $imgName = $_FILES['imageUpload']['name'];
+    $imgData = file_get_contents($_FILES['imageUpload']['tmp_name']);
+
+    // Insert data into the 'images' table
+    $stmt = $pdo->prepare("INSERT INTO `images` (`img_name`, `img_data`) VALUES (?, ?)");
+    $stmt->execute([$imgName, $imgData]);
+
+    echo "Image uploaded successfully!";
+}
+?>
+//html file
+
+<form action="your_php_script.php" method="post" enctype="multipart/form-data">
+    <input type="file" name="imageUpload">
+    <button type="submit">Upload Image</button>
+</form>
+
+
+//php
+
+<?php
+// Retrieve image by name (adjust the query as needed)
+$stmt = $pdo->prepare("SELECT `img_data` FROM `images` WHERE `img_name` = ?");
+$stmt->execute([$imgName]);
+$imgData = $stmt->fetchColumn();
+
+// Display the image
+echo '<img src="data:image/jpeg;base64,' . base64_encode($imgData) . '" alt="Uploaded Image">';
+?>
+
+
+//////////////////// info for saving information into the database 
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $gender = $_POST['gender'];
+    $phoneNumber = $_POST['phoneNumber'];
+
+    $servername = "localhost";
+    $db_username = "root";
+    $db_password = "noman065";
+
+    // Create connection
+    $conn = new mysqli($servername, $db_username, $db_password);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: ". $conn->connect_error);
+    }
+
+    $result = $conn->query("SHOW DATABASES LIKE 'Ecom'");
+    if ($result->num_rows == 0) {
+        // Database does not exist, create it
+        $sql = "CREATE DATABASE Ecom";
+        if ($conn->query($sql) === TRUE) {
+            echo "Database created successfully";
+        } else {
+            echo "Error creating database: ". $conn->error;
+        }
+    } else {
+        // echo "Database 'Ecom' already exists";
+    }
+
+    $query = "USE Ecom";
+
+    if ($conn->query($query) === true) {
+        // echo "Success";
+    } else {
+        die("Error");
+    }
+
+    $result = $conn->query("SHOW TABLES LIKE 'Users'");
+
+    if ($result->num_rows == 0) {
+        // Table does not exist, create it
+        $sql = "CREATE TABLE Users (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            first_name VARCHAR(30) NOT NULL,
+            last_name VARCHAR(30) NOT NULL,
+            email VARCHAR(50) NOT NULL,
+            gender VARCHAR(10) NOT NULL,
+            phone_number VARCHAR(20),
+            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Table Users created successfully";
+        } else {
+            echo "Error creating table: ". $conn->error;
+        }
+    } else {
+        // echo "Table Users already exists";
+    }
+
+    $query = "INSERT INTO Users (first_name, last_name, email, gender, p<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $email = $_POST['email'];
+        $gender = $_POST['gender'];
+        $phoneNumber = $_POST['phoneNumber'];
+    
+        $servername = "localhost";
+        $db_username = "root";
+        $db_password = "noman065";
+    
+        // Create connection
+        $conn = new mysqli($servername, $db_username, $db_password);
+    
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: ". $conn->connect_error);
+        }
+    
+        $result = $conn->query("SHOW DATABASES LIKE 'Ecom'");
+        if ($result->num_rows == 0) {
+            // Database does not exist, create it
+            $sql = "CREATE DATABASE Ecom";
+            if ($conn->query($sql) === TRUE) {
+                echo "Database created successfully";
+            } else {
+                echo "Error creating database: ". $conn->error;
+            }
+        } else {
+            // echo "Database 'Ecom' already exists";
+        }
+    
+        $query = "USE Ecom";
+    
+        if ($conn->query($query) === true) {
+            // echo "Success";
+        } else {
+            die("Error");
+        }
+    
+        $result = $conn->query("SHOW TABLES LIKE 'Users'");
+    
+        if ($result->num_rows == 0) {
+            // Table does not exist, create it
+            $sql = "CREATE TABLE Users (
+                id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                first_name VARCHAR(30) NOT NULL,
+                last_name VARCHAR(30) NOT NULL,
+                email VARCHAR(50) NOT NULL,
+                gender VARCHAR(10) NOT NULL,
+                phone_number VARCHAR(20),
+                reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )";
+    
+            if ($conn->query($sql) === TRUE) {
+                echo "Table Users created successfully";
+            } else {
+                echo "Error creating table: ". $conn->error;
+            }
+        } else {
+            // echo "Table Users already exists";
+        }
+    
+        $query = "INSERT INTO Users (first_name, last_name, email, gender, phone_number) VALUES ('$firstName', '$lastName', '$email', '$gender', '$phoneNumber')";
+        if ($conn->query($query) === true) {
+            include 'edirect.php'; // Redirect to another page after successful submission
+        } else {
+            die("Error");
+        }
+    
+        mysqli_close($conn);
+    }
+    ?>hone_number) VALUES ('$firstName', '$lastName', '$email', '$gender', '$phoneNumber')";
+    if ($conn->query($query) === true) {
+        include 'edirect.php'; // Redirect to another page after successful submission
+    } else {
+        die("Error");
+    }
+
+    mysqli_close($conn);
+}
+?>
+
+
+//////////////////////////////////////////////////////////////// Create a search bar/////////////////////////////
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search Bar</title>
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navbar items -->
+    <div id="navlist">
+        <a href="#">Home</a>
+        <a href="#">Our Products</a>
+        <a href="#">Careers</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+
+        <!-- search bar right align -->
+        <div class="search">
+            <form action="#">
+                <input type="text" placeholder="Search Courses" name="search">
+                <button>
+                    <i class="fa fa-search" style="font-size: 18px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- logo with tag -->
+    <div class="content">
+        <h1>GeeksforGeeks</h1>
+        <b>A Computer Science Portal for Geeks</b>
+        <p>
+            How many times were you frustrated while
+            looking out for a good collection of
+            programming/algorithm/interview questions?
+            What did you expect and what did you get?
+            This portal has been created to provide
+            well written, well thought and well
+            explained solutions for selected questions.
+        </p>
+    </div>
+</body>
+
+</html>
+
+//////////////////////////////////////////////Search BAR CSS CODE//////////////////////////////
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* styling navlist */
+#navlist {
+    background-color: #0074D9;
+    position: absolute;
+    width: 100%;
+}
+
+/* styling navlist anchor element */
+#navlist a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.navlist-right {
+    float: right;
+}
+
+/* hover effect of navlist anchor element */
+#navlist a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* styling search bar */
+.search input[type=text] {
+    width: 300px;
+    height: 25px;
+    border-radius: 25px;
+    border: none;
+}
+
+.search {
+    float: right;
+    margin: 7px;
+}
+
+.search button {
+    background-color: #0074D9;
+    color: #f2f2f2;
+    float: right;
+    padding: 5px 10px;
+    margin-right: 16px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+/* styling logo and tag */
+.content {
+    padding-top: 40px;
+}
+
+.content h1 {
+    color: green;
+}
